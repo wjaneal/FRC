@@ -12,10 +12,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
   import edu.wpi.first.wpilibj.drive.*;
   import edu.wpi.first.wpilibj.SpeedControllerGroup;
   import edu.wpi.first.wpilibj.XboxController;
-  
+ import edu.wpi.first.networktables.NetworkTable; 
   //import edu.wpi.first.wpilibj.ADXRS450_Gyro;
   //import edu.wpi.first.wpilibj.Encoder;
-
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableEntry;
 public class DriveSubsystem extends SubsystemBase{
   /**
    * Creates a new driveSubsystem.
@@ -33,8 +34,11 @@ public class DriveSubsystem extends SubsystemBase{
   SpeedControllerGroup motorGroupLeft;
   SpeedControllerGroup motorGroupRight;
   DifferentialDrive m_drive;
-
-  
+  NetworkTableInstance nT;
+  NetworkTable robotNetwork;
+  NetworkTableEntry HexX;
+  NetworkTableEntry HexY;
+  NetworkTableEntry HexSize;
  
   public DriveSubsystem() {
     // Initialize motors (competition robot)
@@ -43,7 +47,11 @@ public class DriveSubsystem extends SubsystemBase{
    final WPI_TalonSRX leftFront = new WPI_TalonSRX(2);
    final WPI_TalonSRX leftBack = new WPI_TalonSRX(1);
 
-  // This initializes the Encoders - two encoders at the base
+  //NetworkTable Initialization
+  final NetworkTableInstance nT = NetworkTableInstance.getDefault();
+  final NetworkTable robotNetwork = nT.getTable("hexagons");
+  
+   // This initializes the Encoders - two encoders at the base
   //Encoder EC1,EC2;
   //final Encoder EC1 = new Encoder(0, 1, false, Encoder.EncodingType.k1X); // encoder at the base
   //final Encoder EC2 = new Encoder(2, 3, false, Encoder.EncodingType.k1X); // encoder at the base
